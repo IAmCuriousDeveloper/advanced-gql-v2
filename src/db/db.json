@@ -8,6 +8,15 @@
       "avatar": "http",
       "createdAt": 1571213104370,
       "id": "Z2hlvDmLOSRZGebC_Z_aA"
+    },
+    {
+      "email": "prashantrawal@gmail.com",
+      "password": "1234",
+      "role": "ADMIN",
+      "verified": false,
+      "avatar": "http",
+      "createdAt": 1621944906926,
+      "id": "YnRYb2GfksuSuQJy1LO1u"
     }
   ],
   "posts": [],
