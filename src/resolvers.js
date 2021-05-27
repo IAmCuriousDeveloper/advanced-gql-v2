@@ -1,5 +1,8 @@
 const { authenticated, authorized } = require("./auth");
+const { PubSub } = require("apollo-server");
 const NEW_POST = "NEW_POST";
+
+const pubSub = new PubSub();
 
 /**
  * Anything Query / Mutation resolver
@@ -11,17 +14,17 @@ module.exports = {
     me: authenticated((_, __, { user }) => {
       return user;
     }),
-    posts(_, __, { user, models }) {
+    posts: authenticated((_, __, { user, models }) => {
       return models.Post.findMany({ author: user.id });
-    },
+    }),
 
-    post(_, { id }, { user, models }) {
+    post: authenticated((_, { id }, { user, models }) => {
       return models.Post.findOne({ id, author: user.id });
-    },
+    }),
 
-    userSettings(_, __, { user, models }) {
+    userSettings: authenticated((_, __, { user, models }) => {
       return models.Settings.findOne({ user: user.id });
-    },
+    }),
     // public resolver
     feed(_, __, { models }) {
       return models.Post.findMany();
@@ -34,7 +37,7 @@ module.exports = {
 
     createPost(_, { input }, { user, models }) {
       const post = models.Post.createOne({ ...input, author: user.id });
-      pubsub.publish(NEW_POST, { newPost: post });
+      pubSub.publish(NEW_POST, { newPost: post });
       return post;
     },
 
@@ -42,14 +45,16 @@ module.exports = {
       return models.User.updateOne({ id: user.id }, input);
     },
     // admin role
-    invite(_, { input }, { user }) {
-      return {
-        from: user.id,
-        role: input.role,
-        createdAt: Date.now(),
-        email: input.email,
-      };
-    },
+    invite: authenticated(
+      authorized("ADMIN", (_, { input }, { user }) => {
+        return {
+          from: user.id,
+          role: input.role,
+          createdAt: Date.now(),
+          email: input.email,
+        };
+      })
+    ),
 
     signup(_, { input }, { models, createToken }) {
       const existing = models.User.findOne({ email: input.email });
@@ -76,6 +81,15 @@ module.exports = {
       return { token, user };
     },
   },
+
+  Subscription: {
+    newPost: {
+      subscribe: () => {
+        return pubSub.asyncIterator(NEW_POST);
+      },
+    },
+  },
+
   User: {
     posts(root, _, { user, models }) {
       if (root.id !== user.id) {

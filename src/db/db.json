@@ -19,6 +19,43 @@
       "id": "YnRYb2GfksuSuQJy1LO1u"
     }
   ],
-  "posts": [],
+  "posts": [
+    {
+      "message": "i am the new message",
+      "author": "YnRYb2GfksuSuQJy1LO1u",
+      "createdAt": 1622093995781,
+      "id": "NZ7pW9EvYoQ3oawlt2OvL"
+    },
+    {
+      "message": "i am the new message",
+      "author": "YnRYb2GfksuSuQJy1LO1u",
+      "createdAt": 1622094075531,
+      "id": "C5-27AyN2GNI0m39_4QQu"
+    },
+    {
+      "message": "i am the new message",
+      "author": "YnRYb2GfksuSuQJy1LO1u",
+      "createdAt": 1622094148079,
+      "id": "RTBgRw4tN-z0a7vBopj5P"
+    },
+    {
+      "message": "i am the new one",
+      "author": "YnRYb2GfksuSuQJy1LO1u",
+      "createdAt": 1622094167791,
+      "id": "IEp9yai52zqiFCcAU3Yjx"
+    },
+    {
+      "message": "first",
+      "author": "YnRYb2GfksuSuQJy1LO1u",
+      "createdAt": 1622094254748,
+      "id": "Kex9eWkxujk3IA0x2s9BS"
+    },
+    {
+      "message": "second",
+      "author": "YnRYb2GfksuSuQJy1LO1u",
+      "createdAt": 1622094277979,
+      "id": "CGQumMQZkfQFxZ89cpnx5"
+    }
+  ],
   "settings": []
 }
